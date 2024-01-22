@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  config-service:
+    build:
+      context: config-service
+    ports:
+      - "8888:8888"
+    environment:
+      SPRING_PROFILES_ACTIVE: "native"
+      CONFIG_SERVICE_PASSWORD: "${CONFIG_SERVICE_PASSWORD}"
+
+  discovery-service:
+    build:
+      context: discovery-service
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-service
+
+  gateway-service:
+    build:
+      context: gateway-service
+    ports:
+      - "4000:4000"
+    depends_on:
+      - config-service
+
+  postgres:
+    image: "postgis/postgis:${POSTGIS_VERSION}"
+    container_name: "${POSTGRESDB_SERVER_NAME}"
+    ports:
+      - "${POSTGRESDB_LOCAL_PORT}:${POSTGRESDB_DOCKER_PORT}"
+    environment:
+      POSTGRES_DB: "${POSTGRESDB_DB_NAME}"
+      POSTGRES_USER: "${POSTGRESDB_USER}"
+      POSTGRES_PASSWORD: "${POSTGRESDB_USER_PASSWORD}"
+
+  map-rendering-service:
+    build:
+      context: map-rendering-service
+    ports:
+      - "6000:6000"
+    depends_on:
+      - config-service
+      - postgres
+    env_file:
+      - .env
