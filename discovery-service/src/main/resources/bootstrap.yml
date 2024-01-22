@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: discovery-service
+  cloud:
+    config:
+      uri: http://config-service:8888
+      fail-fast: true
+      password: ${CONFIG_SERVICE_PASSWORD}
+      username: user
+  freemarker:
+    template-loader-path: classpath:/templates/
+    prefer-file-system-access: false
+
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    server:
+      waitTimeInMsWhenSyncEmpty: 0

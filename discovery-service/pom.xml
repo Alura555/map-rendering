@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github.alura.rendering</groupId>
-        <artifactId>rendering</artifactId>
+        <artifactId>map-rendering</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -21,12 +21,22 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-            <version>4.1.0</version>
+            <version>4.0.3</version>
         </dependency>
         <dependency>
-            <groupId>net.postgis</groupId>
-            <artifactId>postgis-geometry</artifactId>
-            <version>2021.1.0</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-netflix-eureka-server</artifactId>
+            <version>4.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+            <version>4.0.0</version>
         </dependency>
     </dependencies>
 
