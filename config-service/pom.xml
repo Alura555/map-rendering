@@ -5,8 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github.alura.rendering</groupId>
-        <artifactId>rendering</artifactId>
+        <artifactId>map-rendering</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>config-service</artifactId>
@@ -15,18 +16,18 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <main.basedir>${basedir}/../..</main.basedir>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-config-server</artifactId>
-            <version>4.1.0</version>
+            <version>4.0.0</version>
         </dependency>
         <dependency>
-            <groupId>net.postgis</groupId>
-            <artifactId>postgis-geometry</artifactId>
-            <version>2021.1.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
     </dependencies>
 

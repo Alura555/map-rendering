@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${POSTGRESDB_SERVER_NAME}:${POSTGRESDB_DOCKER_PORT}/${POSTGRESDB_DB_NAME}
+    username: ${POSTGRESDB_USER}
+    password: ${POSTGRESDB_USER_PASSWORD}
+  r2dbc:
+    url: r2dbc:postgresql://${POSTGRESDB_SERVER_NAME}:${POSTGRESDB_DOCKER_PORT}/${POSTGRESDB_DB_NAME}
+    username: ${POSTGRESDB_USER}
+    password: ${POSTGRESDB_USER_PASSWORD}
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://${POSTGRESDB_SERVER_NAME}:${POSTGRESDB_DOCKER_PORT}/${POSTGRESDB_DB_NAME}
+    baseline-on-migrate: true
+
+server:
+  port: 6000
+  servlet:
+    context-path: /objects
+
+
