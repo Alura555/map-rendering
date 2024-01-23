@@ -1,0 +1,22 @@
+INSERT INTO geo_object (geometry, color_characteristic) VALUES
+    ('POINT(30 10)'::geometry(Point, 3857), 'rgb(255, 0, 0)'),
+    ('LINESTRING(30 10, 10 30, 40 40)'::geometry(LineString, 3857), 'rgb(0, 255, 0)'),
+    ('POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))'::geometry(Polygon, 3857), 'rgb(0, 0, 255)'),
+    ('POINT(45 25)'::geometry(Point, 3857), 'rgb(255, 255, 0)'),
+    ('LINESTRING(20 20, 30 30, 40 40)'::geometry(LineString, 3857), 'rgb(128, 0, 128)'),
+    ('POLYGON((40 20, 50 30, 30 30, 40 20))'::geometry(Polygon, 3857), 'rgb(255, 165, 0)'),
+    ('POINT(35 15)'::geometry(Point, 3857), 'rgb(255, 192, 203)'),
+    ('LINESTRING(15 15, 25 25, 35 35)'::geometry(LineString, 3857), 'rgb(0, 255, 255)'),
+    ('POLYGON((25 15, 35 25, 15 25, 25 15))'::geometry(Polygon, 3857), 'rgb(255, 0, 255)'),
+    ('POINT(50 20)'::geometry(Point, 3857), 'rgb(165, 42, 42)'),
+    ('LINESTRING(10 10, 20 20, 30 30)'::geometry(LineString, 3857), 'rgb(128, 128, 128)'),
+    ('POLYGON((20 10, 30 20, 10 20, 20 10))'::geometry(Polygon, 3857), 'rgb(0, 255, 0)'),
+    ('POINT(40 30)'::geometry(Point, 3857), 'rgb(128, 128, 0)'),
+    ('LINESTRING(15 10, 25 20, 35 30)'::geometry(LineString, 3857), 'rgb(0, 128, 128)'),
+    ('POLYGON((30 15, 40 25, 20 25, 30 15))'::geometry(Polygon, 3857), 'rgb(128, 0, 0)'),
+    ('POINT(25 25)'::geometry(Point, 3857), 'rgb(0, 0, 128)'),
+    ('LINESTRING(10 30, 20 40, 30 50)'::geometry(LineString, 3857), 'rgb(192, 192, 192)'),
+    ('POLYGON((35 30, 45 40, 25 40, 35 30))'::geometry(Polygon, 3857), 'rgb(127, 255, 212)'),
+    ('POINT(20 15)'::geometry(Point, 3857), 'rgb(128, 0, 128)'),
+    ('LINESTRING(5 5, 15 15, 25 25)'::geometry(LineString, 3857), 'rgb(107, 142, 35)');
+

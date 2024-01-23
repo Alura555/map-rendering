@@ -2,9 +2,9 @@ server:
   port: 4000
 
 zuul:
+  ignoredServices: '*'
   routes:
-    ignoredServices: '*'
     map-rendering-service:
-      path: /objects/**
+      path: /**
       url: http://map-rendering-service:6000
       stripPrefix: false
