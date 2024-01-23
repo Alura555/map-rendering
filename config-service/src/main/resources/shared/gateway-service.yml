@@ -1,10 +1,17 @@
 server:
   port: 4000
 
-zuul:
-  ignoredServices: '*'
-  routes:
-    map-rendering-service:
-      path: /**
-      url: http://map-rendering-service:6000
-      stripPrefix: false
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: map-rendering-service
+          uri: http://map-rendering-service:6000
+          predicates:
+            - Path=/map-rendering/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
