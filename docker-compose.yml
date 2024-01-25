@@ -6,6 +6,11 @@ services:
       context: config-service
     ports:
       - "8888:8888"
+    healthcheck:
+      test: curl --fail http://localhost:8888/ || exit 0
+      interval: 30s
+      timeout: 10s
+      retries: 3
     environment:
       SPRING_PROFILES_ACTIVE: "native"
       CONFIG_SERVICE_PASSWORD: "${CONFIG_SERVICE_PASSWORD}"
@@ -13,18 +18,34 @@ services:
   discovery-service:
     build:
       context: discovery-service
+    restart: always
     ports:
       - "8761:8761"
+    healthcheck:
+      test: curl --fail http://localhost:8761/ || exit 0
+      interval: 30s
+      timeout: 10s
+      retries: 10
     depends_on:
-      - config-service
+      config-service:
+        condition: service_healthy
 
   gateway-service:
     build:
       context: gateway-service
+    restart: always
     ports:
       - "4000:4000"
+    healthcheck:
+      test: curl --fail http://localhost:4000/ || exit 0
+      interval: 30s
+      timeout: 10s
+      retries: 10
     depends_on:
-      - config-service
+      config-service:
+        condition: service_healthy
+      discovery-service:
+        condition: service_healthy
     env_file:
       - .env
 
@@ -33,6 +54,12 @@ services:
     container_name: "${POSTGRESDB_SERVER_NAME}"
     ports:
       - "${POSTGRESDB_LOCAL_PORT}:${POSTGRESDB_DOCKER_PORT}"
+    restart: always
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRESDB_DB_NAME}", "-U", "${POSTGRESDB_USER}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     environment:
       POSTGRES_DB: "${POSTGRESDB_DB_NAME}"
       POSTGRES_USER: "${POSTGRESDB_USER}"
@@ -41,11 +68,21 @@ services:
   map-rendering-service:
     build:
       context: map-rendering-service
+    restart: always
     ports:
       - "${MAP_RENDERING_LOCAL_PORT}:${MAP_RENDERING_DOCKER_PORT}"
+    healthcheck:
+      test: curl --fail http://localhost:${MAP_RENDERING_DOCKER_PORT}/ || exit 0
+      interval: 30s
+      timeout: 10s
+      retries: 10
     depends_on:
-      - config-service
-      - postgres
+      config-service:
+        condition: service_healthy
+      discovery-service:
+          condition: service_healthy
+      postgres:
+          condition: service_healthy
     env_file:
       - .env
 
