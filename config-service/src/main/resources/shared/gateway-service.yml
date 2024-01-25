@@ -4,9 +4,17 @@ server:
 spring:
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:8080"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
       routes:
         - id: map-rendering-service
-          uri: http://map-rendering-service:6000
+          uri: http://map-rendering-service:${MAP_RENDERING_LOCAL_PORT}
           predicates:
             - Path=/map-rendering/**
 

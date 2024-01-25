@@ -14,8 +14,13 @@ spring:
     baseline-on-migrate: true
 
 server:
-  port: 6000
+  port: ${MAP_RENDERING_LOCAL_PORT}
   servlet:
     context-path: /map-rendering/objects
 
-
+cors:
+  allowed-origins: "http://your_frontend_url"
+  allowed-methods: "GET,POST,PUT,DELETE"
+  allowed-headers: "*"
+  allow-credentials: true
+  max-age: 3600

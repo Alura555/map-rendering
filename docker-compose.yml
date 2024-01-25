@@ -25,6 +25,8 @@ services:
       - "4000:4000"
     depends_on:
       - config-service
+    env_file:
+      - .env
 
   postgres:
     image: "postgis/postgis:${POSTGIS_VERSION}"
@@ -40,9 +42,17 @@ services:
     build:
       context: map-rendering-service
     ports:
-      - "6000:6000"
+      - "${MAP_RENDERING_LOCAL_PORT}:${MAP_RENDERING_DOCKER_PORT}"
     depends_on:
       - config-service
       - postgres
     env_file:
       - .env
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web:/usr/share/nginx/html
+    restart: always
