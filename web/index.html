@@ -6,14 +6,19 @@
     <title>OpenLayers Map</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@8.2.0/ol.css" type="text/css">
     <style>
-    #map {
-    width: 800px;
-    height: 600px;
-}
-
-  </style>
+        #map {
+            width: 800px;
+            height: 600px;
+        }
+        #error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
+<div id="error-message"></div>
 <div id="map"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/ol@8.2.0/dist/ol.js"></script>

@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
         .then(response => {
              if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error(`Error: ${response.statusText}`);
                 }
                 return response.json();
         })
@@ -95,5 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
             );
         })
-        .catch(error => console.error('Ошибка получения данных:', error));
+        .catch(error => {
+                document.getElementById('error-message').innerText = 'Error: ' + error.message;
+            });
 });
