@@ -60,6 +60,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+    volumes:
+      - ./database/1_schema.sql:/docker-entrypoint-initdb.d/1_schema.sql
+      - ./database/2_insert_data_geo_object.sql:/docker-entrypoint-initdb.d/2_insert_data_geo_object.sql
     environment:
       POSTGRES_DB: "${POSTGRESDB_DB_NAME}"
       POSTGRES_USER: "${POSTGRESDB_USER}"
