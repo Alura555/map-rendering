@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var height = urlParams.get('height');
     var bbox = urlParams.get('bbox');
 
-    function getCenterAndExtent(width, height, bbox) {
+    function getCenterAndZoom(width, height, bbox) {
         const bboxArray = bbox.split(',').map(Number);
 
         const center = [
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return { center, zoom };
     }
 
-    const { center, zoom } = getCenterAndExtent(width, height, bbox);
+    const { center, zoom } = getCenterAndZoom(width, height, bbox);
 
     var map = new ol.Map({
         target: 'map',
@@ -51,9 +51,11 @@ document.addEventListener('DOMContentLoaded', function () {
     })
         .then(response => {
              if (!response.ok) {
-                    throw new Error(`Error: ${response.statusText}`);
-                }
-                return response.json();
+                return response.json().then(errorResponse => {
+                    throw new Error(`Status: ${response.status}, Error: ${errorResponse.message}`);
+                });
+             }
+             return response.json();
         })
         .then(serverResponse => {
             const format = new ol.format.WKT();
@@ -96,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
             );
         })
         .catch(error => {
+                mapContainer.style.display = 'none';
                 document.getElementById('error-message').innerText = 'Error: ' + error.message;
             });
 });
