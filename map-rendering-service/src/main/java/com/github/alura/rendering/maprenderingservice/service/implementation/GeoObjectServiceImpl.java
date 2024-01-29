@@ -17,6 +17,11 @@ public class GeoObjectServiceImpl implements GeoObjectService {
     @Override
     public Flux<GeoObject> findByBorders(String bbox) {
         String[] bboxParts = bbox.split(",");
+
+        if (bboxParts.length != 4) {
+            throw new IllegalArgumentException("Invalid number of parameters in bbox");
+        }
+
         double minLon = Double.parseDouble(bboxParts[0]);
         double minLat = Double.parseDouble(bboxParts[1]);
         double maxLon = Double.parseDouble(bboxParts[2]);

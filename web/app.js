@@ -5,7 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var bbox = urlParams.get('bbox');
 
     function getCenterAndZoom(width, height, bbox) {
+
         const bboxArray = bbox.split(',').map(Number);
+
+        if (bboxArray.length !== 4) {
+              return { center: [0, 0], zoom: 1 };
+        }
 
         const center = [
             (bboxArray[0] + bboxArray[2]) / 2,
@@ -21,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         return { center, zoom };
     }
+
 
     const { center, zoom } = getCenterAndZoom(width, height, bbox);
 
@@ -41,8 +47,11 @@ document.addEventListener('DOMContentLoaded', function () {
      mapContainer.style.width = `${width}px`;
      mapContainer.style.height = `${height}px`;
 
-    var apiUrl = 'http://gateway-service:4000/map-rendering/objects?width=' + width + '&height=' + height + '&bbox=' + bbox;
+    var apiUrl = 'http://gateway-service:4000/map-rendering/objects?width=' + width + '&height=' + height;
 
+    if (bbox !== null) {
+        apiUrl += '&bbox=' + bbox;
+    }
     fetch(apiUrl,{
         method: 'GET',
             headers: {
